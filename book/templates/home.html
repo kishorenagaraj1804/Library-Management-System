@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'home.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- Welcome Section -->
+    <div class="welcome-box">
+
+        <div>
+            <h2>👋 Welcome Admin</h2>
+            <p>Library Management Dashboard</p>
+        </div>
+
+        <div class="date-time">
+            <h3 id="currentDate"></h3>
+            <h3 id="currentTime"></h3>
+        </div>
+
+    </div>
+
+    <h2>Dashboard Overview</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Students</h3>
+            <p>{{ total_student }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Books</h3>
+            <p>{{ total_books }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Issued Books</h3>
+            <p>{{ issued_books }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Available Books</h3>
+            <p>{{ available_books }}</p>
+        </div>
+
+    </div>
+
+    <h2>Library Statistics</h2>
+
+    <div class="chart-container">
+        <canvas id="libraryChart"></canvas>
+    </div>
+
+    <h2>Quick Actions</h2>
+
+    <div class="actions">
+
+        <a href="{% url 'add_student' %}">
+            <button>Add Student</button>
+        </a>
+
+        <a href="{% url 'add_book' %}">
+            <button>Add Book</button>
+        </a>
+
+        <a href="{% url 'issue_book' %}">
+            <button>Issue Book</button>
+        </a>
+
+    </div>
+
+    <h2>Recent Issued Books</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Student Name</th>
+                <th>Book Name</th>
+                <th>Issue Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for issue in recent_issues %}
+
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ issue.student.name }}</td>
+                <td>{{ issue.book.book_name }}</td>
+                <td>{{ issue.issue_date }}</td>
+
+                <td>
+                    {% if issue.status == "Issued" %}
+                        <span class="status-issued">{{ issue.status }}</span>
+                    {% else %}
+                        <span class="status-returned">{{ issue.status }}</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="5" style="text-align:center;">
+                    No Books Issued Yet.
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script>
+
+function updateDateTime() {
+
+    const now = new Date();
+
+    const options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    };
+
+    document.getElementById("currentDate").innerHTML =
+        now.toLocaleDateString("en-IN", options);
+
+    document.getElementById("currentTime").innerHTML =
+        now.toLocaleTimeString("en-IN");
+
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+</script>
+
+<script>
+
+const ctx = document.getElementById("libraryChart");
+
+new Chart(ctx, {
+
+    type: "bar",
+
+    data: {
+
+        labels: ["Students", "Books", "Issued", "Available"],
+
+        datasets: [{
+
+            label: "Library Overview",
+
+            data: [
+                Number("{{ total_student }}"),
+                Number("{{ total_books }}"),
+                Number("{{ issued_books }}"),
+                Number("{{ available_books }}")
+            ],
+
+            backgroundColor: [
+                "#3498db",
+                "#ebba34",
+                "#51bd40",
+                "#9b59b6"
+            ],
+
+            borderColor: [
+                "#3498db",
+                "#ebba34",
+                "#51bd40",
+                "#9b59b6"
+            ],
+
+            borderWidth: 1
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+        maintainAspectRatio: false,
+
+        scales: {
+
+            y: {
+                beginAtZero: true
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

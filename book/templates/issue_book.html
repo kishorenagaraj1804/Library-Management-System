@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Issue Book
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'issue_book.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>Issue Book</h2>
+
+    <!-- Error Message -->
+    {% if error %}
+        <p style="color:red; text-align:center; font-weight:bold;">
+            {{ error }}
+        </p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="student">Student Name</label>
+        <select id="student" name="student" required>
+            <option value="">Select Student</option>
+
+            {% for student in students %}
+                <option value="{{ student.id }}">
+                    {{ student.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="book">Book Name</label>
+        <select id="book" name="book" required>
+            <option value="">Select Book</option>
+
+            {% for book in books %}
+                <option value="{{ book.id }}">
+                    {{ book.book_name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="issue_date">Issue Date</label>
+        <input type="date" id="issue_date" name="issue_date" required>
+
+        <button type="submit">
+            Issue Book
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

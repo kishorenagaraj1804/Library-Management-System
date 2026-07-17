@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Add Student
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'student_addd.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>Add Student</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Student Name</label>
+        <input type="text" name="name" placeholder="Enter Student Name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter Email">
+
+        <label>Phone Number</label>
+        <input type="text" name="phone" placeholder="Enter Phone Number">
+
+        <label>Department</label>
+        <input type="text" name="department" placeholder="Enter Department">
+
+        <label>Year</label>
+        <input type="number" name="year" placeholder="Enter Year">
+
+        <label>Age</label>
+        <input type="number" name="age" placeholder="Enter Age">
+
+        <label>Grade</label>
+        <input type="text" name="grade" placeholder="Enter Grade">
+
+        <label>Status</label>
+        <select name="status">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select>
+
+        <button type="submit">Save Student</button>
+    </form>
+
+</div>
+
+{% endblock %}

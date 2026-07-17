@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Book Management
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'book.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="top-bar">
+
+        <h2>Book Management</h2>
+
+        <div class="actions">
+
+            <!-- Search Form -->
+            <form method="GET" style="display:flex; gap:10px;">
+
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request.GET.search }}"
+                    placeholder="🔍 Search Book"
+                >
+
+                <button type="submit" class="search-btn">
+                    Search
+                </button>
+
+            </form>
+
+            <a href="{% url 'add_book' %}" class="add-btn">
+                ➕ Add Book
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Download Button -->
+    <div style="margin-bottom:20px;">
+
+        <form action="{% url 'export_book_excel' %}" method="GET">
+
+            <button type="submit" class="download">
+                ⬇ Download Books List
+            </button>
+
+        </form>
+
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for b in books %}
+
+            <tr>
+
+                <td>{{ b.id }}</td>
+                <td>{{ b.book_name }}</td>
+                <td>{{ b.author }}</td>
+                <td>{{ b.category }}</td>
+                <td>{{ b.quantity }}</td>
+
+                <td>
+                    {% if b.status == "Available" %}
+                        <span class="status-available">
+                            {{ b.status }}
+                        </span>
+                    {% else %}
+                        <span class="status-issued">
+                            {{ b.status }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td>
+
+                    <form action="{% url 'edit_book' b.id %}"
+                          method="GET"
+                          style="display:inline;">
+                        <button type="submit" class="edit-btn">
+                            Edit
+                        </button>
+                    </form>
+
+                    <form action="{% url 'delete_book' b.id %}"
+                          method="POST"
+                          style="display:inline;">
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="delete-btn"
+                            onclick="return confirm('Are you sure you want to delete this book?');">
+                            Delete
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="7" style="text-align:center;">
+                    No Books Found
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<div class="pagination">
+
+    {% if books.has_previous %}
+        <a href="?page=1&search={{ request.GET.search }}">First</a>
+        <a href="?page={{ books.previous_page_number }}&search={{ request.GET.search }}">Previous</a>
+    {% endif %}
+
+    <span>
+        Page {{ books.number }} of {{ books.paginator.num_pages }}
+    </span>
+
+    {% if books.has_next %}
+        <a href="?page={{ books.next_page_number }}&search={{ request.GET.search }}">Next</a>
+        <a href="?page={{ books.paginator.num_pages }}&search={{ request.GET.search }}">Last</a>
+    {% endif %}
+
+</div>
+
+{% endblock %}

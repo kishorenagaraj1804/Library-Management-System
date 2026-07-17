@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Issue Book
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'return_book.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="container">
+
+        <h2>Return Book</h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <!-- Student Name -->
+            <label for="student">Student Name</label>
+            <select id="student" name="student" required>
+                <option value="">Select Student</option>
+
+                {% for student in students %}
+                    <option value="{{ student.id }}">
+                        {{ student.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Book Name -->
+            <label for="book">Book Name</label>
+            <select id="book" name="book" required>
+                <option value="">Select Book</option>
+
+                {% for book in books %}
+                    <option value="{{ book.id }}">
+                        {{ book.book_name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Return Date -->
+            <label for="return_date">Return Date</label>
+            <input
+                type="date"
+                id="return_date"
+                name="return_date"
+                required
+            >
+
+            <button type="submit">
+                Return Book
+            </button>
+
+        </form>
+
+    </div>
+
+{% endblock %}

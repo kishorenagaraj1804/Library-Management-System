@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Edit Student
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'student_edit.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>Edit Student</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Student Name</label>
+        <input
+            type="text"
+            name="name"
+            value="{{ student.name }}"
+            placeholder="Enter Student Name"
+            required
+        >
+
+        <label>Email</label>
+        <input
+            type="email"
+            name="email"
+            value="{{ student.email }}"
+            placeholder="Enter Email"
+            required
+        >
+
+        <label>Phone</label>
+        <input
+            type="text"
+            name="phone"
+            maxlength="10"    title="Enter exactly 10 digts"
+            value="{{ student.phone }}"
+            placeholder="Enter Phone Number"
+            required
+        >
+
+        <label>Department</label>
+        <input
+            type="text"
+            name="department"
+            value="{{ student.department }}"
+            placeholder="Enter Department"
+            required
+        >
+
+        <label>Year</label>
+        <input
+            type="number"
+            name="year"
+            value="{{ student.year }}"
+            placeholder="Enter Year"
+            required
+        >
+
+        <label>Age</label>
+        <input
+            type="number"
+            name="age"
+            value="{{ student.age }}"
+            placeholder="Enter Age"
+            required
+        >
+
+        <label>Grade</label>
+        <input
+            type="text"
+            name="grade"
+            value="{{ student.grade }}"
+            placeholder="Enter Grade"
+            required
+        >
+
+        <label>Status</label>
+        <select name="status" required>
+
+            <option value="Active"
+                {% if student.status == "Active" %}selected{% endif %}>
+                Active
+            </option>
+
+            <option value="Inactive"
+                {% if student.status == "Inactive" %}selected{% endif %}>
+                Inactive
+            </option>
+
+        </select>
+
+        <button type="submit">
+            Save Changes
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

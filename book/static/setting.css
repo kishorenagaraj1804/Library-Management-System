@@ -1,0 +1,181 @@
+/* ------------------------
+   Base Page
+-------------------------*/
+
+body {
+    background: white;
+    color: black;
+    transition: 0.3s ease;
+}
+
+/* ------------------------
+   Container
+-------------------------*/
+
+.container{
+    width: 500px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    transition: 0.3s ease;
+}
+
+.container h2{
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+/* ------------------------
+   Form
+-------------------------*/
+
+.form-group{
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label{
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.form-group input{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.form-group input:focus{
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52,152,219,0.4);
+}
+
+/* ------------------------
+   Eye Icon
+-------------------------*/
+
+.eye-icon{
+    position: absolute;
+    right: 10px;
+    top: 38px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* ------------------------
+   Button
+-------------------------*/
+
+.save-btn{
+    width: 100%;
+    padding: 14px;
+    margin-top: 25px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn:hover{
+    background: #217dbb;
+}
+
+/* ------------------------
+   Horizontal Line
+-------------------------*/
+
+hr{
+    margin: 30px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+/* ------------------------
+   Responsive
+-------------------------*/
+
+@media (max-width: 600px){
+    .container{
+        width: 90%;
+        padding: 20px;
+    }
+
+    .container h2{
+        font-size: 24px;
+    }
+
+    .save-btn{
+        font-size: 15px;
+    }
+}
+
+/* ------------------------
+   DARK MODE (ONLY ONE CLEAN SYSTEM)
+-------------------------*/
+
+body.dark-mode {
+    background-color: #121212 !important;
+    color: white !important;
+}
+
+/* container */
+body.dark-mode .container{
+    background: #2b2b2b !important;
+    color: white !important;
+}
+
+/* inputs */
+body.dark-mode input,
+body.dark-mode select{
+    background: #444 !important;
+    color: white !important;
+    border: 1px solid #666 !important;
+}
+
+/* labels + headings */
+body.dark-mode label,
+body.dark-mode h2{
+    color: white !important;
+}
+
+/* button */
+body.dark-mode .save-btn{
+    background: #0d6efd !important;
+}
+
+/* hr */
+body.dark-mode hr{
+    border-top: 1px solid #444 !important;
+}
+
+
+body.dark-mode .container{
+    background: black;
+    color:#222;
+}
+
+body.dark-mode table{
+    background:black;
+}
+
+body.dark-mode td{
+    color:#222;
+}
+
+body.dark-mode th{
+    color:#fff;
+}

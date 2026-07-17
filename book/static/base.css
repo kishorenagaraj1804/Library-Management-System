@@ -1,0 +1,90 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f4f4;
+}
+
+.navbar{
+    background:#2f4156;
+    padding:15px 40px;
+}
+
+.logo{
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin-top:15px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.nav-links a:hover{
+    color:#ffd54f;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark-mode{
+    background:#121212;
+}
+
+body.dark-mode .navbar{
+    background:#1e1e1e;
+}
+
+body.dark-mode .logo,
+body.dark-mode .nav-links a{
+    color:white;
+}
+
+body.dark-mode .top-bar h2{
+    color:white;
+}
+
+body.dark-mode .container{
+    background:#1f1f1f;
+}
+
+body.dark-mode table{
+    background:#1f1f1f;
+    color:#fff;
+}
+
+body.dark-mode thead{
+    background:#333;
+}
+
+body.dark-mode th{
+    background:#333;
+    color:#fff;
+}
+
+body.dark-mode td{
+    background:#1f1f1f;
+    color:#fff;
+    border-bottom:1px solid #444;
+}
+
+body.dark-mode tbody tr:hover td{
+    background:#2b2b2b;
+}
